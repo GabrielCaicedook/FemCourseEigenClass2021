@@ -118,26 +118,37 @@ void Poisson::Contribute(IntPointData &data, double weight, MatrixDouble &EK, Ma
     MatrixDouble dphi = data.dphidx;
     MatrixDouble axes = data.axes;
     MatrixDouble dphi2, dphi3;
-
+    MatrixDouble perm(3, 3);
+    perm = this->GetPermeability();
+    
+    double perm_valX= perm(0,0);
+    
+    double valPerm =0.0;
+    int nphis = phi.size();
+    for(int iphi=0; iphi<nphis; iphi++){
+      //  std::cout<<"phival "<<dphi(0,iphi)<<std::endl;
+        for(int jphi=0; jphi<nphis; jphi++){
+            EK(iphi,jphi) += weight*perm_valX*dphi(0,iphi)*dphi(0,jphi)*data.detjac;
+            
+        }
+    }
+   // std::cout << EK << std::endl;
     dphi2 = data.axes.transpose()*data.dphidx;
     dphi3 = dphi2.transpose();
 
-    MatrixDouble perm(3, 3);
-    perm = this->GetPermeability();
+    
     double res = 0.;
 
     auto force = this->GetForceFunction();
     if(force)
     {
+         //data.x ya era la coordenada del punto de integración 
         VecDouble resloc(1);
         force(data.x, resloc);
         res = resloc[0];
     }
 
-    //+++++++++++++++++
-    // Please implement me
-    std::cout << "\nPLEASE IMPLEMENT ME\n" << __PRETTY_FUNCTION__ << std::endl;
-    DebugStop();
+ 
     //+++++++++++++++++
 }
 

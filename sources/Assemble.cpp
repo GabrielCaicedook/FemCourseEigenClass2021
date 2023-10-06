@@ -60,6 +60,7 @@ void Assemble::Compute(SparseMat &globmat, MatrixDouble &rhs) {
 
         int nshape = cel->NShapeFunctions();
         int nstate = cel->GetStatement()->NState();
+        const int neqel = nshape*nstate;
         MatrixDouble ek(nstate * nshape, nstate * nshape);
         MatrixDouble ef(nstate * nshape, 1);
         ek.setZero();
@@ -67,9 +68,45 @@ void Assemble::Compute(SparseMat &globmat, MatrixDouble &rhs) {
 
         cel->CalcStiff(ek, ef);
         
+        //Criar vetor indices de destino
+        //Utilizar ele para assemblar ek e ef en globalmat e rhs
+        
+        VecInt destind(neqel);
+        destind.setZero();
+        int64_t ndof = cel->NDOF();
+        int count = 0;
+        
+        for (int i = 0; i < ndof; i++){
+            DOF& dofi = cel ->GetDOF(i);
+            const int64_t firsteq = dofi.GetFirstEquation();
+            const int64_t neqdof = dofi.GetNShape() * dofi.GetNState();
+            for (int ieqdof = 0; ieqdof < neqdof; ieqdof++ ){
+                destind[count++] = firsteq + ieqdof; 
+            }
+        
+        }
+        
+       // utilizar destind para assemblar ek e ef en globalmat e rhs
+       //for (int)
+        for (int i = 0; i < neqel; i++){
+            const int64_t dest_i = destind [i];
+            rhs (dest_i,0) += ef(i,0);
+            for (int j = 0; j < neqel; j++ ){
+                const int64_t dest_j = destind[j];
+                globmat.coeffRef(dest_i,dest_j) += ek (i,j);
+            }
+        }
+        
+        {
+            /* code */
+        }
+        
+            /* code */
+        }
+        
+
         //+++++++++++++++++
         std::cout << "\nPLEASE IMPLEMENT ME\n" << __PRETTY_FUNCTION__ << std::endl;
         DebugStop();
         //+++++++++++++++++
     }
-}

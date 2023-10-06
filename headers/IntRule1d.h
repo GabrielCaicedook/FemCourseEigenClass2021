@@ -29,6 +29,8 @@ public:
     
     // Constructor of integration rule 1D
     IntRule1d(int order);
+
+    //int gabriel(int pp);
     
     // Method to set polynomial order of the integration rule 1D
     virtual void SetOrder(int order) override;
@@ -54,6 +56,7 @@ public:
     // Integration rule 1D method obtained from Numerical Recipes
     static void gauleg(const double x1, const double x2, VecDouble &x, VecDouble &w);
     
+    static int TestStatic(int order);
 };
 
 

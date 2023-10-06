@@ -37,13 +37,18 @@ void exact(const VecDouble &point,VecDouble &val, MatrixDouble &deriv);
 
 int main ()
 {
+    //Criando da malha geometrica 
+    //Basado en OneD.msh
     GeoMesh gmesh;
     ReadGmsh read;
+    //Se agrega la localización del archivo OneD.msh 
     std::string filename("oneD.msh");
 #ifdef MACOSX
     filename = "../"+filename;
 #endif
     read.Read(gmesh,filename);
+
+//Criando de malha computaciononal e de mathstatement de Poisoon com materialid 1
 
     CompMesh cmesh(&gmesh);
     MatrixDouble perm(3,3);
@@ -51,31 +56,40 @@ int main ()
     perm(0,0) = 1.;
     perm(1,1) = 1.;
     perm(2,2) = 1.;
-    Poisson *mat1 = new Poisson(1,perm);
+    Poisson *mat1 = new Poisson(1/*material id*/,perm);
     mat1->SetDimension(1);
     
+    //Cordenada &x y devuelve res
+    //Qué es res?
     auto force = [](const VecDouble &x, VecDouble &res)
     {
+       //res[0] = x[0]*x[0];
         res[0] = 1.;
     };
+    
     mat1->SetForceFunction(force);
     MatrixDouble proj(1,1),val1(1,1),val2(1,1);
     proj.setZero();
     val1.setZero();
     val2.setZero();
-    L2Projection *bc_linha = new L2Projection(0,2,proj,val1,val2);
-    L2Projection *bc_point = new L2Projection(0,3,proj,val1,val2);
+    L2Projection *bc_linha = new L2Projection(0,2/*matid*/,proj,val1,val2);
+    L2Projection *bc_point = new L2Projection(0,3/*matid*/,proj,val1,val2);
+
+
+
+//Setando todos los mathstatements na malha computacional incluindo
+//as condiciones contorno
     std::vector<MathStatement *> mathvec = {0,mat1,bc_point,bc_linha};
     cmesh.SetMathVec(mathvec);
     cmesh.SetDefaultOrder(2);
-    cmesh.AutoBuild();
+    cmesh.AutoBuild();  
     cmesh.Resequence();
 
-    
-    
+//Creación de analisis e rodando a simulacao que envolve Assemble() e Solve()    
     Analysis AnalysisLoc(&cmesh);
     AnalysisLoc.RunSimulation();
     
+    //Postprocesamiento do error baseado na solucao exata
     PostProcessTemplate<Poisson> postprocess;
     postprocess.SetExact(exact);
     
@@ -85,6 +99,7 @@ int main ()
     
     return 0;
 }
+
 void exact(const VecDouble &point,VecDouble &val, MatrixDouble &deriv){
 
     deriv(0,0) = 4-point[0];

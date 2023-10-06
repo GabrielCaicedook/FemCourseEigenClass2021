@@ -32,8 +32,13 @@ void Integrate1D (){
     // test an integration rule
     // lambda expression
     auto func = [](double x){return x*x;};
-    
+    int val=3;
+    IntRule1d gab;
+      
     IntRule1d oned(2);
+   // auto val2 = oned.gabriel(3);
+    
+
     int np = oned.NPoints();
     double integral = 0.;
     VecDouble co(1);
@@ -43,6 +48,7 @@ void Integrate1D (){
         oned.Point(ip, co, weight);
         double val = func(co[0]);
         integral += val*weight;
+        double valoresperado=2/3;
     }
-    std::cout << "espera se 2/3 obtem se " << integral << std::endl;    
+    std::cout << "espera se "<< 2./3 <<" obtem se " << integral << std::endl;    
 }

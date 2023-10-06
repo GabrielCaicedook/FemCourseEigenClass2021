@@ -30,7 +30,7 @@ class DOF
     // Number of state variables associated with each shape function
     int nstate = 0;
     
-    // Polinomial order of the shape function associated with the connect
+    // Polinomial order of the shape function associated with the DOF
     int order = 1;
     
 public:
