@@ -57,15 +57,16 @@ void Analysis::RunSimulation() {
     Assemble assemb(cmesh);
 
     int ne = assemb.NEquations();
-    SparseMat K(ne, ne);
-    MatrixDouble F(ne, 1);
+    SparseMat K(3, 3);
+    MatrixDouble F(3, 1);
 
     K.setZero();
+  
     F.setZero();
 
     assemb.Compute(K, F);
     std::cout << "Assemble done!" << std::endl;
-
+  
     GlobalSystem = K;
     RightHandSide = F;
 
@@ -77,6 +78,7 @@ void Analysis::RunSimulation() {
     // Compute the numerical factorization 
     solver.factorize(K); 
     //Use the factors to solve the linear system 
+  
     Solution = solver.solve(F); 
 
     std::cout << "Solution computed!" << std::endl;

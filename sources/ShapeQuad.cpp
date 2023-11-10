@@ -29,9 +29,29 @@ void ShapeQuad::Shape(const VecDouble &xi, VecInt &orders, VecDouble &phi, Matri
         std::cout << "ShapeQuad::Shape, only implemented until order = 2" << std::endl;
         DebugStop();
     }
+    
+    auto nshape = NShapeFunctions(orders);
+    
+    double ksi = xi[0];
+    double eta = xi[1];
 
-    std::cout << "Please implement me\n";
-    DebugStop();
+    phi.resize(nshape);
+    dphi.resize(2,nshape);
+    
+
+    phi[0]=0.25*(1-ksi)*(1-eta);
+    phi[1]=0.25*(1+ksi)*(1-eta);
+    phi[2]=0.25*(1+ksi)*(1+eta);
+    phi[3]=0.25*(1-ksi)*(1+eta);
+
+    dphi(0,0)=-0.25*(1-eta);
+    dphi(0,1)=-0.25*(1+ksi);
+    dphi(1,0)=0.25*(1-eta);
+    dphi(1,1)=-0.25*(1+ksi);
+    dphi(2,0)=0.25*(1+eta);
+    dphi(2,1)=0.25*(1+ksi);
+    dphi(3,0)=-0.25*(1+eta);
+    dphi(3,1)=0.25*(1-ksi);
 }
 
 /// returns the number of shape functions associated with a side

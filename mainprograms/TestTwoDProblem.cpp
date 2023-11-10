@@ -24,16 +24,22 @@
 #include "L2Projection.h"
 #include "Analysis.h"
 #include "PostProcessTemplate.h"
+ #include "VTKGeoMesh.h"
 
 int main ()
 {
     GeoMesh gmesh;
     ReadGmsh read;
-    std::string filename("quads.msh");
+    std::string filename("Element2d.msh");
+
+
 #ifdef MACOSX
     filename = "../"+filename;
 #endif
+
     read.Read(gmesh,filename);
+    const std::string filenamevtk("geomesh.vtk");
+    VTKGeoMesh::PrintGMeshVTK(&gmesh, filenamevtk);
 
     CompMesh cmesh(&gmesh);
     MatrixDouble perm(3,3);

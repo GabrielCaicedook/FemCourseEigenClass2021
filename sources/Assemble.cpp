@@ -106,7 +106,7 @@ void Assemble::Compute(SparseMat &globmat, MatrixDouble &rhs) {
         
 
         //+++++++++++++++++
-        std::cout << "\nPLEASE IMPLEMENT ME\n" << __PRETTY_FUNCTION__ << std::endl;
-        DebugStop();
+       // std::cout << "\n  PLEASE IMPLEMENT ME\n" << __PRETTY_FUNCTION__ << std::endl;
+   //     DebugStop();
         //+++++++++++++++++
     }

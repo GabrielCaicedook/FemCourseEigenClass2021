@@ -63,12 +63,10 @@ void IntRule::Print(std::ostream &out) const {
 
 void IntRule::Point(int p, VecDouble& co, double& w) const {
     int dim = co.size();
-    if(dim==0 || dim >3){
 
-        DebugStop();
-    }
     for (int i = 0; i < dim; i++) {
         co[i] = fPoints(p, i);
     }
     w = fWeights[p];
 }
+

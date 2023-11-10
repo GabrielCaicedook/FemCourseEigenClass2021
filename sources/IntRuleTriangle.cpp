@@ -10,12 +10,13 @@
 #include "IntRuleTriangle.h"
 
 IntRuleTriangle::IntRuleTriangle(){
+    SetOrder(0);
 
 }
 
-IntRuleTriangle::IntRuleTriangle(int order) {
-    std::cout << __PRETTY_FUNCTION__ << " needs to be implemented\n";
-    DebugStop();
+IntRuleTriangle::IntRuleTriangle(int order) :IntRule(order){
+    SetOrder(order);
+    
 }
 
 void IntRuleTriangle::SetOrder(int order) {

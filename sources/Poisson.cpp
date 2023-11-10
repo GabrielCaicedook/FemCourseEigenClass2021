@@ -129,7 +129,6 @@ void Poisson::Contribute(IntPointData &data, double weight, MatrixDouble &EK, Ma
       //  std::cout<<"phival "<<dphi(0,iphi)<<std::endl;
         for(int jphi=0; jphi<nphis; jphi++){
             EK(iphi,jphi) += weight*perm_valX*dphi(0,iphi)*dphi(0,jphi)*data.detjac;
-            
         }
     }
    // std::cout << EK << std::endl;
@@ -147,7 +146,12 @@ void Poisson::Contribute(IntPointData &data, double weight, MatrixDouble &EK, Ma
         force(data.x, resloc);
         res = resloc[0];
     }
-
+    for (int iphi = 0; iphi < nphis; iphi++)
+    {
+        EF(iphi,0) += res*weight*phi(iphi,0)*data.detjac;
+        /* code */
+    }
+    
  
     //+++++++++++++++++
 }

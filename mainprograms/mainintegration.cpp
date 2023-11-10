@@ -20,11 +20,35 @@ using std::cout;
 using std::endl;
 using std::cin;
 
-void Integrate1D();
+//void Integrate1D();
+void Integrate2D();
+
 
 int main() {
-    Integrate1D();
+    //Integrate1D();
+    Integrate2D();
+   
     return 0;
+}
+
+
+
+void Integrate2D(){
+    
+    //func: func lamba, es la función que vamos a integrar, en este caso x2 y2
+    auto func = [](VecDouble x){ return x[0]*x[0]*x[1]*x[1];};
+    IntRuleQuad quadrule(2 /*Order*/);
+    const int np = quadrule.NPoints();
+    double integral = 0.0;
+    VecDouble co(2);
+    double weight;
+    for (int ip=0; ip < np; ip++) {
+        quadrule.Point(ip, co, weight);
+        std::cout << "ip  = "<< ip << " co ="<<co << " weight = "<<weight << std::endl;
+        double val = func (co);
+        integral += val*weight;
+    }
+    std::cout << "se espera 4./9, se obtiene" << integral << std::endl;
 }
 
 void Integrate1D (){
@@ -32,12 +56,13 @@ void Integrate1D (){
     // test an integration rule
     // lambda expression
     auto func = [](double x){return x*x;};
-    int val=3;
+    //int val=3;
     IntRule1d gab;
-      
-    IntRule1d oned(2);
+
+   //Creando un objeto tipo Intrule y seteandolo el orden 2    
+    IntRule1d oned(4);
    // auto val2 = oned.gabriel(3);
-    
+   //int np = oned.NPoints(); (Entrega el num de puntos o la fila que se va a emplear en la integración Gaussiana. Para el orden especificado en oned (2);)
 
     int np = oned.NPoints();
     double integral = 0.;
@@ -49,6 +74,9 @@ void Integrate1D (){
         double val = func(co[0]);
         integral += val*weight;
         double valoresperado=2/3;
+        
+        std::cout << "punto de integración = " << co[0] << "  pesos = " << weight << " np  = " << np << std::endl;
     }
-    std::cout << "espera se "<< 2./3 <<" obtem se " << integral << std::endl;    
+    std::cout << "espera se "<< 2./3 <<" obtem se " << integral << std::endl; 
+       
 }

@@ -11,16 +11,29 @@
 #include "IntRuleQuad.h"
 
 IntRuleQuad::IntRuleQuad(){
+     SetOrder(0);
 }
 
-IntRuleQuad::IntRuleQuad(int order) {
-    std::cout << "\nPLEASE IMPLEMENT ME\n" << __PRETTY_FUNCTION__ << std::endl;
-    DebugStop();
+IntRuleQuad::IntRuleQuad(int order) :IntRule(order) {
+    SetOrder(order);
 }
+
 
 void IntRuleQuad::SetOrder(int order) {
-    std::cout << "\nPLEASE IMPLEMENT ME\n" << __PRETTY_FUNCTION__ << std::endl;
-    DebugStop();
+    if(order<0 || order>MaxOrder()){
+        DebugStop();
+    };
+    fOrder = order;
+    int np =(order/2 +1);
+    VecDouble co(2*np);
+    fWeights.resize(np);
+    gaulegQuad(-1., 1., co, fWeights);
+    np = fWeights.size();
+    this->fPoints.resize(np,2);
+    for(int ip=0;ip<np;ip++){
+        fPoints(ip,0)=co[ip];
+        fPoints(ip,1)=co[ip+np];
+    }
 }
 
 void IntRuleQuad::gaulegQuad(const double x1, const double x2, VecDouble &co, VecDouble &w) {
@@ -28,7 +41,6 @@ void IntRuleQuad::gaulegQuad(const double x1, const double x2, VecDouble &co, Ve
     IntRule1d y;
     
     int n = w.size();   
-
     VecDouble cox(n);
     VecDouble coy(n);
     VecDouble wx(n);
@@ -38,6 +50,7 @@ void IntRuleQuad::gaulegQuad(const double x1, const double x2, VecDouble &co, Ve
     x.gauleg(x1, x2, cox, wx);
     y.gauleg(x1, x2, coy, wy);
     
+    // co debería tener una "," porque ahora será un par ordenado???
     co.resize(2*n*n);
     w.resize(n * n);
 

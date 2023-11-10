@@ -191,17 +191,18 @@ void CompElement::CalcStiff(MatrixDouble &ek, MatrixDouble &ef) const {
     
     int nintPoints = intRule->NPoints();
     for(int ip=0; ip<nintPoints;ip++){
-      
+       IntPointData integrationpointdata;
+       InitializeIntPointData(integrationpointdata);
         VecDouble co(Dimension());
         double weight;
-        intRule->Point(ip, co, weight);
-        int coval = co[0];
+        intRule->Point(ip, integrationpointdata.ksi, weight);
+      //  int coval = co[0];
       //  std::cout<<"ip: "<<ip<<" co "<< co[0] <<" weight: "<<weight<<std::endl;
         
-        IntPointData integrationpointdata;
-        InitializeIntPointData(integrationpointdata);
-        ComputeRequiredData(integrationpointdata, co);
-        
+  
+       
+        ComputeRequiredData(integrationpointdata, integrationpointdata.ksi);
+        weight = weight * fabs(integrationpointdata.detjac);
         material->Contribute(integrationpointdata, weight, ek, ef);
         
     }

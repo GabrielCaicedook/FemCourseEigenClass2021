@@ -49,6 +49,9 @@ void Geom1d::X(const VecDouble &xi, MatrixDouble &NodeCo, VecDouble &x) {
     // simple in this case
     for (int i = 0; i < nrow; i++) {
         x[i] = 0.5 * NodeCo(i, 0) * (1. - xi[0]) + 0.5 * NodeCo(i, 1) * (1. + xi[0]);
+        // std::cout << "csi "<< x[i] << std::endl;
+        // std::cout << "NodeCo X1 : " << NodeCo(i, 0) << std::endl;
+        // std::cout << "NodeCo X2 : "<<  NodeCo(i, 1)<< std::endl;
     }
 }
 

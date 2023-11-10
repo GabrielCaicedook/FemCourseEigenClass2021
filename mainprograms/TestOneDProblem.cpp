@@ -28,6 +28,7 @@
 #include "IntRule.h"
 #include "PostProcessTemplate.h"
 #include "Poisson.h"
+#include "VTKGeoMesh.h"
 
 using std::cout;
 using std::endl;
@@ -42,14 +43,18 @@ int main ()
     GeoMesh gmesh;
     ReadGmsh read;
     //Se agrega la localización del archivo OneD.msh 
-    std::string filename("oneD.msh");
+    std::string filename("oneD1.msh");
 #ifdef MACOSX
     filename = "../"+filename;
 #endif
     read.Read(gmesh,filename);
+    const std::string filenamegeo("GeomeshGabriel.vtk");
+    
+    VTKGeoMesh::PrintGMeshVTK(&gmesh,filenamegeo);
 
 //Criando de malha computaciononal e de mathstatement de Poisoon com materialid 1
 
+   int orderp = 1;
     CompMesh cmesh(&gmesh);
     MatrixDouble perm(3,3);
     perm.setZero();
@@ -68,10 +73,16 @@ int main ()
     };
     
     mat1->SetForceFunction(force);
+
+    //Por qué los setea en 1
+
     MatrixDouble proj(1,1),val1(1,1),val2(1,1);
     proj.setZero();
     val1.setZero();
     val2.setZero();
+
+    //Boundary condition = 0
+
     L2Projection *bc_linha = new L2Projection(0,2/*matid*/,proj,val1,val2);
     L2Projection *bc_point = new L2Projection(0,3/*matid*/,proj,val1,val2);
 
@@ -81,7 +92,7 @@ int main ()
 //as condiciones contorno
     std::vector<MathStatement *> mathvec = {0,mat1,bc_point,bc_linha};
     cmesh.SetMathVec(mathvec);
-    cmesh.SetDefaultOrder(2);
+    cmesh.SetDefaultOrder(orderp);
     cmesh.AutoBuild();  
     cmesh.Resequence();
 
@@ -95,6 +106,12 @@ int main ()
     
     VecDouble errvec;
     errvec = AnalysisLoc.PostProcessError(std::cout, postprocess);
+
+    postprocess.AppendVariable("Sol");
+
+
+    const std::string filename2("Solution.vtk");
+    AnalysisLoc.PostProcessSolution(filename2, postprocess);
     
     
     return 0;
