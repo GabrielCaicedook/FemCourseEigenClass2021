@@ -59,9 +59,21 @@ int main ()
     proj.setZero();
     val1.setZero();
     val2.setZero();
-    L2Projection *bc_linha = new L2Projection(0,2,proj,val1,val2);
-    L2Projection *bc_point = new L2Projection(0,3,proj,val1,val2);
-    std::vector<MathStatement *> mathvec = {0,mat1,bc_point,bc_linha};
+
+    int BC = 0;
+    int matid0 = 1;
+    int matid1 = 2;
+    int matid2 = 1;
+    int matid3 = 2;
+    
+    L2Projection *bc_linha0 = new L2Projection(BC,matid0,proj,val1,val2);
+    L2Projection *bc_linha1 = new L2Projection(BC,matid1,proj,val1,val2);
+    L2Projection *bc_linha2 = new L2Projection(BC,matid2,proj,val1,val2);
+    L2Projection *bc_linha3 = new L2Projection(BC,matid3,proj,val1,val2);
+   
+
+
+    std::vector<MathStatement *> mathvec = {0,mat1,bc_linha0,bc_linha1,bc_linha2,bc_linha3};
     cmesh.SetMathVec(mathvec);
     cmesh.SetDefaultOrder(1);
     cmesh.AutoBuild();
