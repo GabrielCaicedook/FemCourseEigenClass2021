@@ -60,7 +60,7 @@ void GeoElementTemplate<TGeom>::X(const VecDouble &xi, VecDouble &x) const{
             coord(j, i) = node.Coord(j);
         }
     }
-    x.setZero();
+    //x.setZero();
     Geom.X(xi, coord, x);
 }
 
