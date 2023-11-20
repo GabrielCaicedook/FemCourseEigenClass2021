@@ -37,6 +37,7 @@ int main ()
     filename = "../"+filename;
 #endif
 
+    
     read.Read(gmesh,filename);
     const std::string filenamevtk("geomesh.vtk");
     VTKGeoMesh::PrintGMeshVTK(&gmesh, filenamevtk);
@@ -52,7 +53,8 @@ int main ()
 
     auto force = [](const VecDouble &x, VecDouble &res)
     {
-        res[0] = 2.*(1.-x[0])*x[0]+2.*(1-x[1])*x[1];
+        res[0] = 1;
+        //2.*(1.-x[0])*x[0]+2.*(1-x[1])*x[1];
     };
     mat1->SetForceFunction(force);
     MatrixDouble proj(1,1),val1(1,1),val2(1,1);
@@ -60,16 +62,16 @@ int main ()
     val1.setZero();
     val2.setZero();
 
-    int BC = 0;
+    int BCD = 0;
     int matid0 = 1;
     int matid1 = 2;
     int matid2 = 1;
     int matid3 = 2;
     
-    L2Projection *bc_linha0 = new L2Projection(BC,matid0,proj,val1,val2);
-    L2Projection *bc_linha1 = new L2Projection(BC,matid1,proj,val1,val2);
-    L2Projection *bc_linha2 = new L2Projection(BC,matid2,proj,val1,val2);
-    L2Projection *bc_linha3 = new L2Projection(BC,matid3,proj,val1,val2);
+    L2Projection *bc_linha0 = new L2Projection(BCD,matid0,proj,val1,val2);
+    L2Projection *bc_linha1 = new L2Projection(BCD,matid1,proj,val1,val2);
+    L2Projection *bc_linha2 = new L2Projection(BCD,matid2,proj,val1,val2);
+    L2Projection *bc_linha3 = new L2Projection(BCD,matid3,proj,val1,val2);
    
 
 
@@ -79,7 +81,7 @@ int main ()
     cmesh.AutoBuild();
     cmesh.Resequence();
 
-        Analysis locAnalysis(&cmesh);
+    Analysis locAnalysis(&cmesh);
     locAnalysis.RunSimulation();
     PostProcessTemplate<Poisson> postprocess;
     auto exact = [](const VecDouble &x, VecDouble &val, MatrixDouble &deriv)
@@ -89,12 +91,22 @@ int main ()
         deriv(1,0) = (1-2.*x[1])*(1-x[0])*x[0];
     };
 
+    const std::string filenameSol("solutionQuad3.vtk");
+    const std::string namevar("Sol");
+    const std::string namevar2("SolExact");
+
+    postprocess.AppendVariable(namevar);
+    postprocess.AppendVariable(namevar2);
+    locAnalysis.PostProcessSolution(filenameSol, postprocess);
+
 //    if (!strcmp("Sol", name.c_str())) return ESol;
 //    if (!strcmp("DSol", name.c_str())) return EDSol;
 //    if (!strcmp("Flux", name.c_str())) return EFlux;
 //    if (!strcmp("Force", name.c_str())) return EForce;
 //    if (!strcmp("SolExact", name.c_str())) return ESolExact;
 //    if (!strcmp("DSolExact", name.c_str())) return EDSolExact;
+
+
     postprocess.AppendVariable("Sol");
     postprocess.AppendVariable("DSol");
     postprocess.AppendVariable("Flux");

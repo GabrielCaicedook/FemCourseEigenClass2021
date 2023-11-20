@@ -206,7 +206,8 @@ void CompMesh::Print(std::ostream & out) {
         MathStatement *mat = this->GetMath(i);
         out << "Material index: " << i << std::endl;
         if (!mat) {
-            DebugStop();
+            //DebugStop();
+            continue;
         }
         mat->Print(out);
     }

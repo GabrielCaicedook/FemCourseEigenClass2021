@@ -57,14 +57,17 @@ void Analysis::RunSimulation() {
     Assemble assemb(cmesh);
 
     int ne = assemb.NEquations();
-    SparseMat K(3, 3);
-    MatrixDouble F(3, 1);
+    SparseMat K(ne, ne);
+    MatrixDouble F(ne, 1);
 
     K.setZero();
   
     F.setZero();
 
     assemb.Compute(K, F);
+
+    std::cout << "F = "<< F << std::endl;
+    std::cout << "K = "<< K << std::endl;
     std::cout << "Assemble done!" << std::endl;
   
     GlobalSystem = K;

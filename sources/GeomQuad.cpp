@@ -24,24 +24,42 @@ void GeomQuad::Shape(const VecDouble &xi, VecDouble &phi, MatrixDouble &dphi) {
     
     if(xi.size() != Dimension || phi.size() != nCorners || dphi.rows() != Dimension || dphi.cols() != nCorners) DebugStop();
     
-    double ksi = xi[0];
+    double csi = xi[0];
     double eta = xi[1];
 
-    
-    phi[0]=0.25*(1-ksi)*(1-eta);
-    phi[1]=0.25*(1+ksi)*(1-eta);
-    phi[2]=0.25*(1+ksi)*(1+eta);
-    phi[3]=0.25*(1-ksi)*(1+eta);
+    phi[0] = 0.25 * (1. - csi) * (1. - eta);
+    dphi(0,0)= 0.25 * (-1. + eta);
+    dphi(1,0)=0.25 * (-1. + csi);
 
-    dphi(0,0)=-0.25*(1-eta);
-    dphi(0,1)=-0.25*(1+ksi);
-    dphi(0,2)=0.25*(1-eta);
-    dphi(0,3)=-0.25*(1+ksi);
-    dphi(1,0)=0.25*(1+eta);
-    dphi(1,1)=0.25*(1+ksi);
-    dphi(1,2)=-0.25*(1+eta);
-    dphi(1,3)=0.25*(1-ksi);
-    std::cout << "pasé por aquí" << std::endl;
+    phi[1] = 0.25 * (1. + csi) * (1. - eta);
+    dphi(0,1)=0.25 * (1. - eta);
+    dphi(1,1)= 0.25 * (-1. - csi);
+
+    phi[2] = 0.25 * (1. + csi) * (1. + eta);
+    dphi(0,2)=0.25 * (1. + eta);
+    dphi(1,2)=0.25 * (1. + csi);
+    
+    phi[3] = 0.25 * (1. - csi) * (1. + eta);
+    dphi(0,3)=0.25 * (-1. - eta);
+    dphi(1,3)= 0.25 * (1. - csi);
+
+    
+    // phi[0]=0.25*(1-ksi)*(1-eta);
+    // phi[1]=0.25*(1+ksi)*(1-eta);
+    // phi[2]=0.25*(1+ksi)*(1+eta);
+    // phi[3]=0.25*(1-ksi)*(1+eta);
+
+    // dphi(0,0)=-0.25*(1-eta);
+    // dphi(0,1)=-0.25*(1+ksi);
+    // dphi(0,2)=0.25*(1-eta);
+    // dphi(0,3)=-0.25*(1+ksi);
+
+    // dphi(1,0)=0.25*(1+eta);
+    // dphi(1,1)=0.25*(1+ksi);
+    // dphi(1,2)=-0.25*(1+eta);
+    // dphi(1,3)=0.25*(1-ksi);
+    // //minha matrix dphi = [2,4]
+    // std::cout << "pasé por aquí" << std::endl;
 }
 
 void GeomQuad::X(const VecDouble &xi, MatrixDouble &NodeCo, VecDouble &x) {
@@ -69,7 +87,8 @@ void GeomQuad::X(const VecDouble &xi, MatrixDouble &NodeCo, VecDouble &x) {
     for(int i = 0; i < space; i++) {
         x[i] = 0.0;
         for(int j = 0; j < 4; j++) {
-            x[i] = phi(j,0)*NodeCo(i,j);
+            x[i] += phi(j,0)*NodeCo(i,j);
+            //x[i]+=NodeCo(i,j)*phi[i];
             std::cout << "funcion map " <<x[i]<< std::endl; 
             std::cout << "NodeCo " << NodeCo(i,j)<< std::endl;
             std::cout << "phi " <<phi[j]<< std::endl; 
@@ -99,11 +118,31 @@ void GeomQuad::X(const VecDouble &xi, MatrixDouble &NodeCo, VecDouble &x) {
 }
 
 void GeomQuad::GradX(const VecDouble &xi, MatrixDouble &NodeCo, VecDouble &x, MatrixDouble &gradx) {
-    std::cout << "\nPLEASE IMPLEMENT ME\n" << __PRETTY_FUNCTION__ << std::endl;
+    
     if(xi.size() != Dimension) DebugStop();
     if(x.size() != NodeCo.rows()) DebugStop();
     if(NodeCo.cols() != nCorners) DebugStop();
-    DebugStop();
+    
+    auto nrow = NodeCo.rows();
+    //nrow = space Valv nows??
+
+    gradx.resize(4,2);
+    // gradx.setZero();
+    // //X(xi, NodeCo, x);
+
+    VecDouble phi(nCorners);
+    MatrixDouble dphi(Dimension, nCorners);
+    Shape(xi, phi,dphi);
+    
+   for(int i = 0; i < 4; i++)
+    {
+        for(int j = 0; j < nrow; j++)
+        {
+            gradx(j,0) += NodeCo(j,i)*dphi(0,i);
+            gradx(j,1) += NodeCo(j,i)*dphi(1,i);
+        }
+    }
+
 }
 
 void GeomQuad::SetNodes(const VecInt &nodes) {
