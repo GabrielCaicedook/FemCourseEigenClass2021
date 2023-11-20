@@ -91,6 +91,7 @@ int main ()
         deriv(1,0) = (1-2.*x[1])*(1-x[0])*x[0];
     };
 
+    mat1->SetExactSolution(exact);
     const std::string filenameSol("solutionQuad3.vtk");
     const std::string namevar("Sol");
     const std::string namevar2("SolExact");

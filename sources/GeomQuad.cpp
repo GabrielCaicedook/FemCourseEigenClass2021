@@ -43,23 +43,6 @@ void GeomQuad::Shape(const VecDouble &xi, VecDouble &phi, MatrixDouble &dphi) {
     dphi(0,3)=0.25 * (-1. - eta);
     dphi(1,3)= 0.25 * (1. - csi);
 
-    
-    // phi[0]=0.25*(1-ksi)*(1-eta);
-    // phi[1]=0.25*(1+ksi)*(1-eta);
-    // phi[2]=0.25*(1+ksi)*(1+eta);
-    // phi[3]=0.25*(1-ksi)*(1+eta);
-
-    // dphi(0,0)=-0.25*(1-eta);
-    // dphi(0,1)=-0.25*(1+ksi);
-    // dphi(0,2)=0.25*(1-eta);
-    // dphi(0,3)=-0.25*(1+ksi);
-
-    // dphi(1,0)=0.25*(1+eta);
-    // dphi(1,1)=0.25*(1+ksi);
-    // dphi(1,2)=-0.25*(1+eta);
-    // dphi(1,3)=0.25*(1-ksi);
-    // //minha matrix dphi = [2,4]
-    // std::cout << "pasé por aquí" << std::endl;
 }
 
 void GeomQuad::X(const VecDouble &xi, MatrixDouble &NodeCo, VecDouble &x) {
@@ -89,9 +72,9 @@ void GeomQuad::X(const VecDouble &xi, MatrixDouble &NodeCo, VecDouble &x) {
         for(int j = 0; j < 4; j++) {
             x[i] += phi(j,0)*NodeCo(i,j);
             //x[i]+=NodeCo(i,j)*phi[i];
-            std::cout << "funcion map " <<x[i]<< std::endl; 
-            std::cout << "NodeCo " << NodeCo(i,j)<< std::endl;
-            std::cout << "phi " <<phi[j]<< std::endl; 
+            // std::cout << "funcion map " <<x[i]<< std::endl; 
+            // std::cout << "NodeCo " << NodeCo(i,j)<< std::endl;
+            // std::cout << "phi " <<phi[j]<< std::endl; 
            
         }
     }

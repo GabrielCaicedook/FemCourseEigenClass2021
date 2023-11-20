@@ -150,18 +150,21 @@ void Poisson::Contribute(IntPointData &data, double weight, MatrixDouble &EK, Ma
          //data.x ya era la coordenada del punto de integración 
         VecDouble resloc(1);
         force(data.x, resloc);
+        
         if(resloc[0]!=0){
-            int ok=0;
+        int ok=0;
         }
-        std::cout<<"point: "<<data.x<<std::endl;
-        std::cout<<"forceval: "<<resloc[0]<<std::endl;
-
+        //std::cout<<"point: "<<data.x<<std::endl;
+        //std::cout<<"forceval: "<<resloc[0]<<std::endl;
 
         res = resloc[0];
+
+
+        
     }
     for (int iphi = 0; iphi < nphis; iphi++)
     {
-        EF(iphi,0) += res*weight*phi(iphi,0)*data.detjac;
+        EF(iphi,0) += res*weight*phi(iphi,0);//*data.detjac;
         /* code */
     }
     
@@ -250,12 +253,12 @@ void Poisson::PostProcessSolution(const IntPointData &data, const int var, VecDo
             // if(SolutionExact) this->SolutionExact(data.x, sol, dsol);
             // else dsol.setZero();
             if(SolutionExact){
-                std::cout<<"pointTest: "<<std::endl;
-                std::cout<<data.x<<std::endl;
+                //std::cout<<"pointTest: "<<std::endl;
+                //std::cout<<data.x<<std::endl;
                 this->SolutionExact(data.x, Solout, dsol);
 
-                std::cout<<"ExactSol: "<<std::endl;
-                std::cout<<Solout<<std::endl;
+                //std::cout<<"ExactSol: "<<std::endl;
+                //std::cout<<Solout<<std::endl;
             }
             // else Solout.setZero();
 

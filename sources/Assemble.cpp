@@ -58,17 +58,26 @@ void Assemble::Compute(SparseMat &globmat, MatrixDouble &rhs) {
     for (int el = 0; el < nelem; el++) {
         CompElement *cel = cmesh->GetElement(el);
 
+        int dimension = cel->Dimension();
+
         int nshape = cel->NShapeFunctions();
         int nstate = cel->GetStatement()->NState();
         const int neqel = nshape*nstate;
-        MatrixDouble ek(nstate * nshape, nstate * nshape);
-        MatrixDouble ef(nstate * nshape, 1);
+        //MatrixDouble ek(nstate * nshape, nstate * nshape);
+        //MatrixDouble ef(nstate * nshape, 1);
+        
+        MatrixDouble ek(neqel, neqel);
+        MatrixDouble ef(neqel, 1);
+
         ek.setZero();
         ef.setZero();
 
         cel->CalcStiff(ek, ef);
 
-        std::cout<< "matriz"<< ek <<std::endl;
+        std::cout<< "matriz" <<std::endl;
+        std::cout<< ek <<std::endl;
+        std::cout<< "f" <<std::endl;
+        std::cout<< ef <<std::endl;
         
         //Criar vetor indices de destino
         //Utilizar ele para assemblar ek e ef en globalmat e rhs
