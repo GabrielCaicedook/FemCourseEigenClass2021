@@ -9,6 +9,7 @@
 ///\endcond
 #include "IntRuleTriangle.h"
 
+
 IntRuleTriangle::IntRuleTriangle(){
     SetOrder(0);
 

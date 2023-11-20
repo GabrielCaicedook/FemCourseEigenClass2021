@@ -30,7 +30,7 @@ int main ()
 {
     GeoMesh gmesh;
     ReadGmsh read;
-    std::string filename("Element2d.msh");
+    std::string filename("test2d.msh");
 
 
 #ifdef MACOSX
@@ -53,8 +53,7 @@ int main ()
 
     auto force = [](const VecDouble &x, VecDouble &res)
     {
-        res[0] = 1;
-        //2.*(1.-x[0])*x[0]+2.*(1-x[1])*x[1];
+        res[0] = 2.*(1.-x[0])*x[0]+2.*(1-x[1])*x[1];
     };
     mat1->SetForceFunction(force);
     MatrixDouble proj(1,1),val1(1,1),val2(1,1);
@@ -63,10 +62,11 @@ int main ()
     val2.setZero();
 
     int BCD = 0;
-    int matid0 = 1;
-    int matid1 = 2;
-    int matid2 = 1;
-    int matid3 = 2;
+    int BCN = 0;
+    int matid0 = 2;
+    int matid1 = 3;
+    int matid2 = 4;
+    int matid3 = 5;
     
     L2Projection *bc_linha0 = new L2Projection(BCD,matid0,proj,val1,val2);
     L2Projection *bc_linha1 = new L2Projection(BCD,matid1,proj,val1,val2);
