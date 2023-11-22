@@ -30,7 +30,7 @@ int main ()
 {
     GeoMesh gmesh;
     ReadGmsh read;
-    std::string filename("test2d.msh");
+    std::string filename("test 222.msh");
 
 
 #ifdef MACOSX
@@ -109,14 +109,19 @@ int main ()
 
 
     postprocess.AppendVariable("Sol");
-    postprocess.AppendVariable("DSol");
-    postprocess.AppendVariable("Flux");
-    postprocess.AppendVariable("Force");
     postprocess.AppendVariable("SolExact");
-    postprocess.AppendVariable("DSolExact");
+    
+    // postprocess.AppendVariable("DSol");
+    // postprocess.AppendVariable("Flux");
+    // postprocess.AppendVariable("Force");
+    
+    // postprocess.AppendVariable("DSolExact");
     postprocess.SetExact(exact);
     mat1->SetExactSolution(exact);
-    locAnalysis.PostProcessSolution("quads.vtk", postprocess);
+    locAnalysis.PostProcessSolution("triangle.vtk", postprocess);
+
+    //locAnalysis.PostProcessSolution("quads.vtk", postprocess);
+
 
     VecDouble errvec;
     errvec = locAnalysis.PostProcessError(std::cout, postprocess);

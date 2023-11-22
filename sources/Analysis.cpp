@@ -67,8 +67,8 @@ void Analysis::RunSimulation() {
     assemb.Compute(K, F);
     std::cout << "ne = "<< ne << std::endl;
 
-    std::cout << "F = "<< F << std::endl;
-    std::cout << "K = "<< K.toDense() << std::endl;
+    // std::cout << "F = "<< F << std::endl;
+    // std::cout << "K = "<< K.toDense() << std::endl;
     std::cout << "Assemble done!" << std::endl;
   
     GlobalSystem = K;

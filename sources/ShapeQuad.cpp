@@ -25,6 +25,7 @@ void ShapeQuad::Shape(const VecDouble &xi, VecInt &orders, VecDouble &phi, Matri
 
     auto nf = NShapeFunctions(orders);
 
+    
     if (orders[nf-1] > 2) {
         std::cout << "ShapeQuad::Shape, only implemented until order = 2" << std::endl;
         DebugStop();
@@ -41,12 +42,8 @@ void ShapeQuad::Shape(const VecDouble &xi, VecInt &orders, VecDouble &phi, Matri
             std::cout << "ShapeQuad::Shape: Invalid dimension for arguments: order\n";
             DebugStop();
         }
-   
-
-
-
-
-   int nshape = NShapeFunctions(orders);
+        
+        int nshape = NShapeFunctions(orders);
 
 
         double csi = xi[0];

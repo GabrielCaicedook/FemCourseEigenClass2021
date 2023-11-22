@@ -29,8 +29,12 @@ void ShapeTriangle::Shape(const VecDouble &xi, VecInt &orders, VecDouble &phi, M
         std::cout << "ShapeTriangle::Shape, only implemented until order = 2" << std::endl;
         DebugStop();
     }
+
+    int nshapes = NShapeFunctions(orders);
     
-    // Linear order
+    phi.resize(3);
+    dphi.resize(2,3);
+    
     phi[0] =  1.-xi[0]-xi[1];
     phi[1] =  xi[0];
     phi[2] =  xi[1];
@@ -40,11 +44,7 @@ void ShapeTriangle::Shape(const VecDouble &xi, VecInt &orders, VecDouble &phi, M
     dphi(1,1) =  0.;
     dphi(0,2) =  0.;
     dphi(1,2) =  1.;
-    
-    std::cout << "Please implement me\n";
-    DebugStop();
-    
-    
+        
 }
 
 /// returns the number of shape functions associated with a side

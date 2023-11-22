@@ -79,25 +79,6 @@ void GeomQuad::X(const VecDouble &xi, MatrixDouble &NodeCo, VecDouble &x) {
         }
     }
 
-;
-
-    // // Number of coordinates of the resulting x needs to be 1, 2 or 3d according to the NodeCo provided
-    // if (x.size() < nrow) x.resize(nrow);
-    // x.setZero();
-
-    // // Could have called Shape and used phi, but the mapping is quite
-    // // simple in this case
-    // for (int i = 0; i < nrow; i++) {
-    //     x[i] = 0.25 * NodeCo(i, 0) * (1. - xi[0]) + 0.25 * NodeCo(i, 1) * (1. + xi[0]) + 0.25 * NodeCo(i, 1) * (1. + xi[0])+ 0.25 * NodeCo(i, 1) * (1. + xi[0]);
-    //     x[i+1] = 0.25 * NodeCo(i, 1) * (1. - xi[1]) + 0.25 * NodeCo(i, 1) * (1. + xi[1]) + 0.25 * NodeCo(i, 2) * (1. + xi[1])+ 0.25 * NodeCo(i, 2) * (1. + xi[1]);
-    //     std::cout <<"NodeCo x "<< NodeCo(i, 0) << " NodeCo y " << NodeCo(i, 1)<< std::endl;
-    //     std::cout <<"NodeCo x "<< NodeCo(1,0) << " NodeCo y " << NodeCo(1,1)<< std::endl;
-    
-
-    
-
-
-
 }
 
 void GeomQuad::GradX(const VecDouble &xi, MatrixDouble &NodeCo, VecDouble &x, MatrixDouble &gradx) {

@@ -74,10 +74,10 @@ void Assemble::Compute(SparseMat &globmat, MatrixDouble &rhs) {
 
         cel->CalcStiff(ek, ef);
 
-        std::cout<< "matriz" <<std::endl;
-        std::cout<< ek <<std::endl;
-        std::cout<< "f" <<std::endl;
-        std::cout<< ef <<std::endl;
+        // std::cout<< "matriz" <<std::endl;
+        // std::cout<< ek <<std::endl;
+        // std::cout<< "f" <<std::endl;
+        // std::cout<< ef <<std::endl;
         
         //Criar vetor indices de destino
         //Utilizar ele para assemblar ek e ef en globalmat e rhs
