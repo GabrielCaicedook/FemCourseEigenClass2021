@@ -91,8 +91,8 @@ void GeomQuad::GradX(const VecDouble &xi, MatrixDouble &NodeCo, VecDouble &x, Ma
     //nrow = space Valv nows??
 
     gradx.resize(4,2);
-    // gradx.setZero();
-    // //X(xi, NodeCo, x);
+    gradx.setZero();
+    //X(xi, NodeCo, x);
 
     VecDouble phi(nCorners);
     MatrixDouble dphi(Dimension, nCorners);

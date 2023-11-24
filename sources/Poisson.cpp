@@ -135,6 +135,7 @@ void Poisson::Contribute(IntPointData &data, double weight, MatrixDouble &EK, Ma
                 dphi_i_Timesdphi_j += dphi(idim, iphi)*dphi(idim,jphi);
             }
             EK(iphi,jphi) += weight*dphi_i_Timesdphi_j;//*data.detjac;
+            
         }
     }
    // std::cout << EK << std::endl;

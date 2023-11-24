@@ -11,6 +11,7 @@
 /// computes the shape functions in function of the coordinate in parameter space and orders of the shape functions (size of orders is number of sides of the element topology)
 void ShapeQuad::Shape(const VecDouble &xi, VecInt &orders, VecDouble &phi, MatrixDouble &dphi){
     
+
     for (int i = 0; i < orders.size(); i++)
     {
         if (orders[i] < 0) {
@@ -52,7 +53,7 @@ void ShapeQuad::Shape(const VecDouble &xi, VecInt &orders, VecDouble &phi, Matri
         phi.resize(nshape);
         dphi.resize(2, nshape);
 
-        phi[0] = 0.25* (1. - csi) * (1. - eta);
+        phi[0] = 0.25* (1.- csi) * (1. - eta);
         phi[1] = 0.25 * (1. + csi) * (1. - eta);
         phi[2] = 0.25 * (1. + csi) * (1. + eta);
         phi[3] = 0.25 * (1. - csi) * (1. + eta);
@@ -66,7 +67,10 @@ void ShapeQuad::Shape(const VecDouble &xi, VecInt &orders, VecDouble &phi, Matri
         dphi(0, 3) = 0.25 * (-1 - eta);
         dphi(1, 3) = 0.25*(1. - csi);
 
+        
         int count = 4;
+
+
 
         for (int i = 4; i < 8; i ++) {
 
@@ -96,6 +100,8 @@ void ShapeQuad::Shape(const VecDouble &xi, VecInt &orders, VecDouble &phi, Matri
         }
         else if (orders[8] != 1) DebugStop();
         if (count != nshape) DebugStop();
+
+
 }
 
 /// returns the number of shape functions associated with a side

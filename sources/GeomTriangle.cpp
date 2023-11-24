@@ -47,7 +47,11 @@ void GeomTriangle::Shape(const VecDouble& xi, VecDouble& phi, MatrixDouble& dphi
 void GeomTriangle::X(const VecDouble &xi, MatrixDouble &NodeCo, VecDouble &x) {
     
     if(xi.size() != Dimension) DebugStop();
-    //if(x.size() != NodeCo.rows()) DebugStop();
+    
+    std::cout<<x.size()<<std::endl;
+    std::cout<<NodeCo.rows()<<std::endl;
+
+    if(x.size() != NodeCo.rows()) DebugStop();
     if(NodeCo.cols() != nCorners) DebugStop();
 
     int nrow = NodeCo.rows();
@@ -84,6 +88,7 @@ void GeomTriangle::GradX(const VecDouble &xi, MatrixDouble &NodeCo, VecDouble &x
     auto nrow = NodeCo.rows();
 
     gradx.resize(3,2);
+    gradx.setZero();
 
     VecDouble phi(nCorners);
     MatrixDouble dphi(Dimension, nCorners);

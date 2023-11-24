@@ -30,27 +30,27 @@ void IntRuleQuad::SetOrder(int order) {
         fPoints.resize(1, 2);
         fWeights.resize(1);
 
-        fPoints(0, 0) = 0.;
+        fPoints(0, 0) =0.;
         fPoints(0, 1) = 0.;
         fWeights[0] = 4.;
     } else if (order == 2 || order == 3) {
         fPoints.resize(4, 2);
         fWeights.resize(4);
 
-        fPoints(0, 0) = -1. / sqrt(3.);
-        fPoints(0, 1) = -1. / sqrt(3.);
+        fPoints(0, 0) = -1./sqrt(3.);
+        fPoints(0, 1) = -1./sqrt(3.);
         fWeights[0] = 1.;
 
-        fPoints(1, 0) = 1. / sqrt(3.);
-        fPoints(1, 1) = -1. / sqrt(3.);
+        fPoints(1, 0) = 1./sqrt(3.);
+        fPoints(1, 1) = -1./sqrt(3.);
         fWeights[1] = 1.;
 
-        fPoints(2, 0) = -1. / sqrt(3.);
-        fPoints(2, 1) = 1. / sqrt(3.);
+        fPoints(2, 0) =-1./sqrt(3.);
+        fPoints(2, 1) =1./sqrt(3.);
         fWeights[2] = 1.;
 
-        fPoints(3, 0) = 1. / sqrt(3.);
-        fPoints(3, 1) = 1. / sqrt(3.);
+        fPoints(3, 0) = 1./sqrt(3.);
+        fPoints(3, 1) = 1./sqrt(3.);
         fWeights[3] = 1.;
         } else if (order == 4 || order == 5) {
         fPoints.resize(9, 2);
@@ -58,23 +58,23 @@ void IntRuleQuad::SetOrder(int order) {
 
         fPoints(0, 0) = -sqrt(3. / 5.);
         fPoints(0, 1) = -sqrt(3. / 5.);
-        fWeights[0] = 25. / 81.;
+        fWeights[0] = 25./81.;
 
         fPoints(1, 0) = 0.;
-        fPoints(1, 1) = -sqrt(3. / 5.);
-        fWeights[1] = 40. / 81.;
+        fPoints(1, 1) = -sqrt(3./5.);
+        fWeights[1] = 40./81.;
 
-        fPoints(2, 0) = sqrt(3. / 5.);
-        fPoints(2, 1) = -sqrt(3. / 5.);
+        fPoints(2, 0) = sqrt(3./5.);
+        fPoints(2, 1) = -sqrt(3./5.);
         fWeights[2] = 25./81;
 
-        fPoints(3, 0) = -sqrt(3. / 5.);
+        fPoints(3, 0) = -sqrt(3./5.);
         fPoints(3, 1) = 0.;
-        fWeights[3] = 40. / 81.;
+        fWeights[3] = 40./81.;
 
         fPoints(4, 0) = 0.;
         fPoints(4, 1) = 0.;
-        fWeights[4] = 64. / 81.;
+        fWeights[4] = 64./81.;
 
          fPoints(5, 0) = sqrt(3. / 5.);
         fPoints(5, 1) = 0.;
@@ -111,7 +111,6 @@ void IntRuleQuad::gaulegQuad(const double x1, const double x2, VecDouble &co, Ve
     x.gauleg(x1, x2, cox, wx);
     y.gauleg(x1, x2, coy, wy);
     
-    // co debería tener una "," porque ahora será un par ordenado???
     co.resize(2*n*n);
     w.resize(n * n);
 
