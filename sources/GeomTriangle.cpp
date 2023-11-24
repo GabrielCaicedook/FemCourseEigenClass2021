@@ -51,7 +51,7 @@ void GeomTriangle::X(const VecDouble &xi, MatrixDouble &NodeCo, VecDouble &x) {
     std::cout<<x.size()<<std::endl;
     std::cout<<NodeCo.rows()<<std::endl;
 
-    if(x.size() != NodeCo.rows()) DebugStop();
+    if(x.size() != NodeCo.cols()) DebugStop();
     if(NodeCo.cols() != nCorners) DebugStop();
 
     int nrow = NodeCo.rows();

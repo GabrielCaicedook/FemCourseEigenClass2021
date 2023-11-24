@@ -30,7 +30,7 @@ int main ()
 {
     GeoMesh gmesh;
     ReadGmsh read;
-    std::string filename("test 222.msh");
+    std::string filename("Triang2El.msh");
 
 
 #ifdef MACOSX
@@ -71,7 +71,7 @@ int main ()
 
        auto exact = [](const VecDouble &x, VecDouble &val, MatrixDouble &deriv)
     {   const double tempx = x[0], tempy = x[1];
-        val[0]= tempx*tempy;
+        val[0]= tempx+tempy;
         deriv(0,0) = 1.;
         deriv(1,0) =1.;
 
@@ -92,7 +92,7 @@ int main ()
 
     //std::vector<MathStatement *> mathvec = {0,mat1,bc_linha0,bc_linha1,bc_linha2,bc_linha3};
     cmesh.SetMathVec(mathvec);
-    cmesh.SetDefaultOrder(1);
+    cmesh.SetDefaultOrder(2);
     cmesh.AutoBuild();
     cmesh.Resequence();
 
