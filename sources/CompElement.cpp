@@ -189,6 +189,11 @@ void CompElement::CalcStiff(MatrixDouble &ek, MatrixDouble &ef) const {
     ef.setZero();
     auto intRule = GetIntRule();
     
+    // int order = this->GetCompMesh()->GetDefaultOrder();
+    // intrule->SetOrder(2* order);
+
+    
+
     int nintPoints = intRule->NPoints();
     for(int ip=0; ip<nintPoints;ip++){
        IntPointData integrationpointdata;

@@ -11,6 +11,7 @@
 /// computes the shape functions in function of the coordinate in parameter space and orders of the shape functions (size of orders is number of sides of the element topology)
 void ShapeTriangle::Shape(const VecDouble &xi, VecInt &orders, VecDouble &phi, MatrixDouble &dphi){
     
+
     for (int i = 0; i < orders.size(); i++)
     {
         if (orders[i] < 0) {
@@ -29,8 +30,12 @@ void ShapeTriangle::Shape(const VecDouble &xi, VecInt &orders, VecDouble &phi, M
         std::cout << "ShapeTriangle::Shape, only implemented until order = 2" << std::endl;
         DebugStop();
     }
+
+    int nshapes = NShapeFunctions(orders);
     
-    // Linear order
+    phi.resize(nshapes);
+    dphi.resize(2,nshapes);
+    
     phi[0] =  1.-xi[0]-xi[1];
     phi[1] =  xi[0];
     phi[2] =  xi[1];
@@ -40,12 +45,40 @@ void ShapeTriangle::Shape(const VecDouble &xi, VecInt &orders, VecDouble &phi, M
     dphi(1,1) =  0.;
     dphi(0,2) =  0.;
     dphi(1,2) =  1.;
-    
-    std::cout << "Please implement me\n";
-    DebugStop();
-    
-    
+
+        int count = 3;
+
+    for (int i = 3; i < 6; i++) {
+        if (orders[i] == 2) {
+
+            int aux1 = i % 3;
+            int aux2 = (i + 1) % 3;
+
+            phi[count] = 4. * phi[aux1] * phi[aux2];
+            dphi(0, count) = 4. * (dphi(0, aux1) * phi[aux2] + phi[aux1] * dphi(0, aux2));
+            dphi(1, count) = 4. * (dphi(1, aux1) * phi[aux2] + phi[aux1] * dphi(1, aux2));
+
+            count++;
+        }
+
+        else if (orders[i] != 1) DebugStop();
+
+    }
+
+    if (orders[6] == 3) {
+        phi[count] = 27. * phi[0] * phi[1]* phi[2];
+
+        dphi(0, count) = 27. *((dphi(0, 0) * phi[1] + phi[0] * dphi(0, 1)) * phi[2] + (phi[0]*phi[1])*dphi(0,2));
+        dphi(1, count) = 27. *((dphi(1, 0) * phi[1] + phi[0] * dphi(1, 1)) * phi[2] + (phi[0] * phi[1]) * dphi(1, 2));
+
+        count++;
+    }
+
+    else if (orders[6] != 1 && orders[6] != 2) DebugStop();
+
+    if (count != nshapes) DebugStop();      
 }
+
 
 /// returns the number of shape functions associated with a side
 int ShapeTriangle::NShapeFunctions(int side, int order){

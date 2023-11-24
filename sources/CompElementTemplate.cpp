@@ -102,6 +102,7 @@ void CompElementTemplate<Shape>::ShapeFunctions(const VecDouble &intpoint, VecDo
     VecInt orders(nsides);
     for(int is=0; is<nsides; is++)
     {
+        std::cout<<"order break"<< GetDOF(is).GetOrder()<<std::endl;
         int doforder = GetDOF(is).GetOrder();
         orders[is] = doforder;
     }

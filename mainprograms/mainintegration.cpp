@@ -21,15 +21,37 @@ using std::endl;
 using std::cin;
 
 //void Integrate1D();
-void Integrate2D();
+void IntegrateTriangle();
+//void Integrate2D();
 
 
 int main() {
     //Integrate1D();
-    Integrate2D();
+    //Integrate2D();
+    IntegrateTriangle();
    
     return 0;
 }
+
+void IntegrateTriangle(){
+    
+    auto func = [](VecDouble x){ return x[0]*x[0]*x[1]*x[1];};
+    IntRuleTriangle quadrule(2);
+    const int np = quadrule.NPoints();
+    double integral = 0.0;
+    VecDouble co(2);
+    double weight;
+    for (int ip=0; ip < np; ip++) {
+        quadrule.Point(ip, co, weight);
+        //std::cout << "ip  = "<< ip << " co ="<<co << " weight = "<<weight << std::endl;
+        double val = func (co);
+        //std::cout << "func value = "<< val << std::endl;
+        integral += val*weight;
+
+    }
+    std::cout << "se espera 0.0007716, se obtiene " << integral << std::endl;
+}
+
 
 
 
