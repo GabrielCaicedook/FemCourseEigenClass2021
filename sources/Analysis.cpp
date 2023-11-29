@@ -65,7 +65,7 @@ void Analysis::RunSimulation() {
     F.setZero();
 
     assemb.Compute(K, F);
-    std::cout << "ne = "<< ne << std::endl;
+    //std::cout << "ne = "<< ne << std::endl;
 
     // std::cout << "F = "<< F << std::endl;
     // std::cout << "K = "<< K.toDense() << std::endl;

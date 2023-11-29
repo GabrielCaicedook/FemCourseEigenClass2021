@@ -47,9 +47,6 @@ void GeomTriangle::Shape(const VecDouble& xi, VecDouble& phi, MatrixDouble& dphi
 void GeomTriangle::X(const VecDouble &xi, MatrixDouble &NodeCo, VecDouble &x) {
     
     if(xi.size() != Dimension) DebugStop();
-    
-    std::cout<<x.size()<<std::endl;
-    std::cout<<NodeCo.rows()<<std::endl;
 
     if(x.size() != NodeCo.cols()) DebugStop();
     if(NodeCo.cols() != nCorners) DebugStop();
