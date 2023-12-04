@@ -32,7 +32,7 @@
 // {
 //     GeoMesh gmesh;
 //     ReadGmsh read;
-//     std::string filename=("Tarefa1_Q.msh");;
+//     std::string filename=("1_Project_T.msh");;
 //     #ifdef MACOSX
 //     filename = "../"+filename;
 //     #endif
@@ -88,7 +88,7 @@
 //     // cmesh.SetMathStatement(1, mat1);
 //     // cmesh.SetMathStatement(2, bc_linha);
 
-//     cmesh.SetDefaultOrder(2);
+//     cmesh.SetDefaultOrder(1);
 //     cmesh.AutoBuild();
 //     cmesh.Resequence();
 
@@ -268,40 +268,40 @@ int main ()
 
     //Simulación 1 funcion 1
        //test.sim_order.push_back(0);
-       test.sim_order.push_back(2);
+       test.sim_order.push_back(1);
        test.meshnames.push_back(common_name + name_mesh1);
        test.exact_sols.push_back(exact1);
        test.forces.push_back(force1);
-       test.vtk_names.push_back("1_Ord2_MallaTri.vtk");
+       test.vtk_names.push_back("1_Ord1_MallaTri.vtk");
 
        //Simulation2 funcion 1
-       test.sim_order.push_back(2);
+       test.sim_order.push_back(1);
        test.meshnames.push_back(common_name + name_mesh2);
        test.exact_sols.push_back(exact1);
        test.forces.push_back(force1);
-       test.vtk_names.push_back("2_Ord2_MallaTri.vtk");
+       test.vtk_names.push_back("2_Ord1_MallaTri.vtk");
 
        //Simulación 3 funcion 1
-       test.sim_order.push_back(2);
+       test.sim_order.push_back(1);
        test.meshnames.push_back(common_name + name_mesh3);
        test.exact_sols.push_back(exact1);
        test.forces.push_back(force1);
-       test.vtk_names.push_back("3_Ord2_MallaTri.vtk");
+       test.vtk_names.push_back("3_Ord1_MallaTri.vtk");
 
        //Simulation4 funcion 1
-       test.sim_order.push_back(2);
+       test.sim_order.push_back(1);
        test.meshnames.push_back(common_name + name_mesh4);
        test.exact_sols.push_back(exact1);
        test.forces.push_back(force1);
-       test.vtk_names.push_back("4_Ord2_MallaTri.vtk");
+       test.vtk_names.push_back("4_Ord1_MallaTri.vtk");
 
        // funcion 2
        //Simulación 5 funcion 2
-       test.sim_order.push_back(2);
+       test.sim_order.push_back(1);
        test.meshnames.push_back(common_name + name_mesh5);
        test.exact_sols.push_back(exact1);
        test.forces.push_back(force1);
-       test.vtk_names.push_back("5_Ord2_MallaTri.vtk");
+       test.vtk_names.push_back("5_Ord1_MallaTri.vtk");
 
     //    //Simulation6 funcion 2
     //    test.sim_order.push_back(2);
