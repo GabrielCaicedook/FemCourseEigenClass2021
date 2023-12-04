@@ -69,12 +69,12 @@ void Analysis::RunSimulation() {
 
     // std::cout << "F = "<< F << std::endl;
     // std::cout << "K = "<< K.toDense() << std::endl;
-    std::cout << "Assemble done!" << std::endl;
+    //std::cout << "Assemble done!" << std::endl;
   
     GlobalSystem = K;
     RightHandSide = F;
 
-    std::cout << "Computing solution..." << std::endl;
+    //std::cout << "Computing solution..." << std::endl;
     
     SparseLU<SparseMat, COLAMDOrdering<int> >   solver;
     // Compute the ordering permutation vector from the structural pattern of A
@@ -85,7 +85,7 @@ void Analysis::RunSimulation() {
   
     Solution = solver.solve(F); 
 
-    std::cout << "Solution computed!" << std::endl;
+    //std::cout << "Solution computed!" << std::endl;
     
     int solsize = Solution.rows();
     VecDouble sol(solsize);
@@ -101,7 +101,7 @@ void Analysis::PostProcessSolution(const std::string &filename, PostProcess &def
 }
 
 VecDouble Analysis::PostProcessError(std::ostream &out, PostProcess &defPostProc) const {
-    std::cout << "Computing error..." << endl;
+    //std::cout << "Computing error..." << endl;
 
     VecDouble values(10);
     VecDouble errors(10);

@@ -152,7 +152,7 @@ void ReadGmsh::Read3(GeoMesh &gmesh, const std::string &file_name)
             {
                 read.getline(buf, 1024);
                 std::string str(buf);
-                std::cout << "Reading mesh format = " << str << std::endl;
+                //std::cout << "Reading mesh format = " << str << std::endl;
                 
             }
             
@@ -224,7 +224,7 @@ void ReadGmsh::Read3(GeoMesh &gmesh, const std::string &file_name)
                 std::string str_end(buf_end);
                 if(str_end == "$EndNodes" || str_end == "$EndNodes\r")
                 {
-                    std::cout << "Read mesh nodes = " <<  gmesh.NumNodes() << std::endl;
+                    //std::cout << "Read mesh nodes = " <<  gmesh.NumNodes() << std::endl;
                 }
                 continue;
             }
@@ -246,7 +246,7 @@ void ReadGmsh::Read3(GeoMesh &gmesh, const std::string &file_name)
                 std::string str_end(buf_end);
                 if(str_end == "$EndElements" || str_end == "$EndElements\r")
                 {
-                    std::cout << "Read mesh elements = " << gmesh.NumElements() << std::endl;
+                    //std::cout << "Read mesh elements = " << gmesh.NumElements() << std::endl;
                 }
                 continue;
             }
@@ -321,7 +321,7 @@ void ReadGmsh::Read4(GeoMesh &gmesh, const std::string &file_name){
         {
             read.getline(buf, 1024);
             std::string str(buf);
-            std::cout << "Reading mesh format = " << str << std::endl;
+            //std::cout << "Reading mesh format = " << str << std::endl;
             if(str[0] != '4'){
                 std::cerr << __PRETTY_FUNCTION__ << '\n'
                         << "Was intended for .msh format 4.1" << std::endl;
@@ -364,7 +364,7 @@ void ReadGmsh::Read4(GeoMesh &gmesh, const std::string &file_name){
             std::string str_end(buf_end);
             if(str_end == "$EndPhysicalNames" || str_end == "$EndPhysicalNames\r")
             {
-                std::cout << "Read mesh number of physical names = " << n_physical_names << std::endl;
+                //std::cout << "Read mesh number of physical names = " << n_physical_names << std::endl;
             }            
             continue;
         } // Physical Names
@@ -445,8 +445,8 @@ void ReadGmsh::Read4(GeoMesh &gmesh, const std::string &file_name){
             std::string str_end(buf_end);
             if(str_end == "$EndEntities" || str_end == "$EndEntities\r")
             {
-                std::cout << "Read mesh entities = " <<  m_n_points + m_n_curves + m_n_surfaces + m_n_volumes << std::endl;
-                std::cout << "Read mesh entities with physical tags = " <<  m_n_physical_points + m_n_physical_curves + m_n_physical_surfaces + m_n_physical_volumes << std::endl;
+                //std::cout << "Read mesh entities = " <<  m_n_points + m_n_curves + m_n_surfaces + m_n_volumes << std::endl;
+                //std::cout << "Read mesh entities with physical tags = " <<  m_n_physical_points + m_n_physical_curves + m_n_physical_surfaces + m_n_physical_volumes << std::endl;
             }
             continue;
         }
@@ -497,7 +497,7 @@ void ReadGmsh::Read4(GeoMesh &gmesh, const std::string &file_name){
             std::string str_end(buf_end);
             if(str_end == "$EndNodes" || str_end == "$EndNodes\r")
             {
-                std::cout << "Read mesh nodes = " <<  gmesh.NumNodes() << std::endl;
+                //std::cout << "Read mesh nodes = " <<  gmesh.NumNodes() << std::endl;
             }
             continue;
         } // Nodes
@@ -583,7 +583,7 @@ void ReadGmsh::Read4(GeoMesh &gmesh, const std::string &file_name){
             std::string str_end(buf_end);
             if(str_end == "$EndElements" || str_end == "$EndElements\r")
             {
-                std::cout << "Read mesh elements = " << gmesh.NumElements() << std::endl;
+                //std::cout << "Read mesh elements = " << gmesh.NumElements() << std::endl;
             }
             continue;
         } // Elements
